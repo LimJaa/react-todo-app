@@ -2,14 +2,15 @@ import React, {useState} from 'react';
 import Lists from "./components/Lists";
 import Form from "./components/Form";
 
-const localTodoList = localStorage.getItem("todoList") ? JSON.parse(localStorage.getItem("todoList")) : [];
-
 export default function App() {
   
    
     
-const [todoList, setTodoList] = useState(localTodoList);
-const [value, setValue] = useState("");
+    const [todoList, setTodoList] = useState([]);
+
+   
+
+ const [value, setValue] = useState("");
 
  const btnSubmit = (e) => {
     e.preventDefault();
@@ -20,14 +21,10 @@ const [value, setValue] = useState("");
         completed: false
     }
     setTodoList(prev => [...prev, newTodo])
-    localStorage.setItem("todoList", JSON.stringify([...todoList, newTodo]));
     setValue("");
  }
 
-const deleteAll = () => {
-    setTodoList([]);
-    localStorage.setItem("todoList", JSON.stringify([]));
-}
+
 
  
   return (
@@ -35,7 +32,6 @@ const deleteAll = () => {
         <div className="todoBlock">
             <div className="title">
                 <h1>To Do List</h1>
-                <button className='deleteBtn' onClick={deleteAll}>Delete All</button>
             </div>
           
             <Lists todoList={todoList} setTodoList ={setTodoList}/>
